@@ -1,0 +1,27 @@
+{
+  "name": "voucherify-nodejs-example",
+  "version": "0.1.0",
+  "description": "A sample Node.js implementation of Voucherify SDK",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "voucherify": "^1.10.0"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/voucherifyio/voucherify-nodejs-example"
+  },
+  "keywords": [
+    "voucherify",
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
