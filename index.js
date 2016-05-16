@@ -1,5 +1,6 @@
 'use strict'
 
+const bodyParser = require('body-parser')
 const express = require('express')
 const swig = require('swig')
 
@@ -11,6 +12,10 @@ app.engine('html', swig.renderFile)
 app.set('view engine', 'html')
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 app.use(routes())
 
