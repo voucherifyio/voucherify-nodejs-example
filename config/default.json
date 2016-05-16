@@ -1,8 +1,12 @@
 {
-  "voucherifyNodeJs": {
-    "voucherifyApi": {
+  "voucherifyNodeJsExampleApp": {
+    "applicationKeys": {
       "applicationId": null,
-      "clientSecretKey": null
+      "applicationSecretKey": null
+    },
+    "clientSideKeys": {
+      "clientApplicationId": null,
+      "clientPublicKey": null
     }
   }
 }
