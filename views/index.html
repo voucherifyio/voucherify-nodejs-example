@@ -16,11 +16,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
     <script src="/libs/voucherify.min.js"></script>
-    <script src="/scripts.js"></script>
     <script>
-      (function () {
+      (function (window) {
+        'use strict'
+
         window.clientConfig = {{ clientConfig | safe | json }}
-      })()
+      })(window)
     </script>
+    <script src="/scripts.js"></script>
   </body>
 </html>
