@@ -131,6 +131,14 @@ body {
     font-weight: bold;
 }
 
+.old-price-value {
+    width: 100%;
+    font-size: 15px;
+    font-style: italic;
+    color: #CCC;
+    text-decoration: line-through;
+}
+
 .voucher-column .label {
     font-size: 23px;
     padding: 5px 0 20px;
