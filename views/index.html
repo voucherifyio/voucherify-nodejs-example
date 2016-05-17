@@ -7,12 +7,73 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <title>Example Express App which uses Voucherfiy.io SDK</title>
   </head>
   <body>
-    <div class="container">
-      <div id="voucher-checkout"></div>
-    </div>
+
+    <header class="main-header wrapper">
+      <img src="voucherify_logo.png" class="voucherify-logo" alt="voucherify-logo" />
+      <h1 class="site-title">Voucherify Sample Shop</h1>
+    </header>
+
+    <section class="product-item wrapper">
+      <div class="notification-box">
+        <div class="message"></div>
+      </div>
+      <div class="clearfix">
+        <div class="product-image-column">
+          <figure class="product-img">
+            <img src="/voucherify_product.jpg" alt="product-img" />
+          </figure>
+          <div class="voucher-checkout-box" id="voucher-checkout"></div>
+        </div>
+        <div class="product-description-column">
+          <h3 class="product-name">Voucherify sample product</h3>
+            <span class="product-price">
+              Regular Price:&nbsp;
+              <span class="price-value">123</span>
+              <span class="price-currency">PLN</span>
+            </span>
+            <span class="discount-price">
+              Discount Price:&nbsp;
+              <span class="price-value">123</span>
+              <span class="price-currency">PLN</span>
+            </span>
+          <p class="product-description">Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed.</p>
+          <div class="clearfix">
+            <div class="name-row">
+              <span class="label">Product Name</span>
+              <span class="value">Voucherify sample product</span>
+            </div>
+            <div class="count-row">
+              <span class="label">Products Count</span>
+              <span class="input-value">
+                <input id="products-count" name="products-count" value="1" type="text" />
+              </span>
+            </div>
+            <div class="price-row">
+              <span class="label">Total price</span>
+              <span id="total-price" class="value">
+                <span class="price-value">123</span>
+                <span class="price-currency">PLN</span>
+              </span>
+            </div>
+            <div class="buy-row">
+              <button class="buy-button">Buy It!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary-section wrapper">
+
+    </section>
+
+    <footer class="main-footer wrapper">
+      <div class="footer-description">Coded by <a href="http://rspective.pl" target="_blank" title="rspective">rspective</a></div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
     <script src="/libs/voucherify.min.js"></script>
