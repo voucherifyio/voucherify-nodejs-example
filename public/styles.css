@@ -194,7 +194,7 @@ body {
 }
 
 .count-row .input-value input {
-    width: 50px;
+    width: 100px;
     padding: 5px 10px;
     border-radius: 2px;
     border: 1px solid #888888;

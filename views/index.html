@@ -32,12 +32,12 @@
           <h3 class="product-name">Voucherify sample product</h3>
             <span class="product-price">
               Regular Price:&nbsp;
-              <span class="price-value">123</span>
+              <span id="regular-price" class="price-value">0</span>
               <span class="price-currency">PLN</span>
             </span>
             <span class="discount-price">
               Discount Price:&nbsp;
-              <span class="price-value">123</span>
+              <span id="discount-price" class="price-value">0</span>
               <span class="price-currency">PLN</span>
             </span>
           <p class="product-description">Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed. Lorem ipsum sid dolor amed.</p>
@@ -54,8 +54,8 @@
             </div>
             <div class="price-row">
               <span class="label">Total price</span>
-              <span id="total-price" class="value">
-                <span class="price-value">123</span>
+              <span class="value">
+                <span id="total-price" class="price-value">0</span>
                 <span class="price-currency">PLN</span>
               </span>
             </div>
@@ -82,6 +82,7 @@
         'use strict'
 
         window.clientConfig = {{ clientConfig | safe | json }}
+
       })(window)
     </script>
     <script src="/scripts.js"></script>
