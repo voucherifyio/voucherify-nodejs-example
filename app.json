@@ -1,0 +1,7 @@
+{
+  "name": "Voucherify Node.js Example",
+  "description": "A sample Node.js implementation of Voucherify SDK",
+  "repository": "https://github.com/voucherifyio/voucherify-nodejs-example",
+  "logo": "http://voucherify-nodejs-example.herokuapp.com/voucherify.png",
+  "keywords": ["voucherify", "node", "heroku", "express"]
+}

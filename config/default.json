@@ -1,0 +1,12 @@
+{
+  "voucherifyNodeJsExampleApp": {
+    "applicationKeys": {
+      "applicationId": null,
+      "applicationSecretKey": null
+    },
+    "clientSideKeys": {
+      "clientApplicationId": null,
+      "clientPublicKey": null
+    }
+  }
+}
