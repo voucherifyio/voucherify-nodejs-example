@@ -138,9 +138,9 @@
     _self.render = function () {
       if (_self.discount === 0) {
         $('.old-price-value')
-          .hide(500)
+          .hide(0)
         $('.discount-price')
-          .hide(500)
+          .hide(0)
       } else {
         $('.old-price-value')
           .show(500)
