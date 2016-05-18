@@ -1,5 +1,6 @@
 {
   "voucherifyNodeJsExampleApp": {
+    "email": "email@example.com",
     "applicationKeys": {
       "applicationId": null,
       "applicationSecretKey": null

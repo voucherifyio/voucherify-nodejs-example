@@ -89,6 +89,7 @@
       (function (window) {
         'use strict'
 
+        window.userIdentity = {{ userIdentity | safe | json }}
         window.clientConfig = {{ clientConfig | safe | json }}
 
       })(window)

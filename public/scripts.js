@@ -1,4 +1,4 @@
-(function (window, $, Voucherify, clientConfig) {
+(function (window, $, Voucherify, clientConfig, userIdentity) {
   'use strict'
 
   var redeemVoucher = function (voucherCode, trackingId) {
@@ -74,7 +74,7 @@
     return this.init()
   }
   
-  var VoucherifySampleShop = function () {
+  var VoucherifySampleShop = function (identity) {
     var _self = this
 
     _self.totalPrice = 0
@@ -94,7 +94,7 @@
         }
       })
 
-      _self.voucher = new VoucherCode('user@identity', function (res) {
+      _self.voucher = new VoucherCode(identity, function (res) {
         _self.res = res
         _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
         _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
@@ -167,6 +167,6 @@
     return _self.init()
   }
 
-  return new VoucherifySampleShop()
+  return new VoucherifySampleShop(userIdentity)
 
-})(window, window.jQuery, window.Voucherify, window.clientConfig)
+})(window, window.jQuery, window.Voucherify, window.clientConfig, window.userIdentity)
