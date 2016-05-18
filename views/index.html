@@ -2,25 +2,96 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-    <link rel="stylesheet" href="/libs/voucherify.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/voucherify.js/1.4.5/voucherify.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <title>Example Express App which uses Voucherfiy.io SDK</title>
   </head>
   <body>
-    <div class="container">
-      <div id="voucher-checkout"></div>
-    </div>
+    <header class="main-header wrapper">
+      <img src="voucherify_logo.png" class="voucherify-logo" alt="voucherify-logo"/>
+      <h1 class="site-title">Voucherify Sample Shop</h1>
+    </header>
+
+    <section class="product-item wrapper">
+      <div class="clearfix">
+        <div class="product-image-column">
+          <figure class="product-img">
+            <img src="/voucherify_product.jpg" alt="product-img"/>
+          </figure>
+          <div class="voucher-checkout-box" id="voucher-checkout"></div>
+        </div>
+
+        <div id="summary-tab" class="summary-column">
+          <div class="tick-icon">OK</div>
+          <div id="summary-message" class="message"></div>
+          <div class="response">
+            <pre id="response-code" class="code"></pre>
+          </div>
+        </div>
+
+        <div id="shop-tab" class="product-description-column">
+          <h3 class="product-name">Voucherify sample product</h3>
+          <span class="product-price">
+            Regular Price:&nbsp;
+            <span id="regular-price" class="price-value">0</span>
+            <span class="price-currency">EUR</span>
+          </span>
+          <span class="discount-price">
+            Discount:&nbsp;
+            <span id="discount-price" class="price-value">0</span>
+            <span class="price-currency">EUR</span>
+          </span>
+
+          <p class="product-description">This example aim to show you what profits can you gain with <a href="http://voucherify.io" rel="noopener" target="_blank" title="Voucherify">Voucherify.io</a>. Make sample transaction using code generated in <a href="https://app.voucherify.io" rel="noopener" target="_blank" title="Voucherify platform">Voucherify Panel</a> to see Voucherify it in action!</p>
+
+          <div class="clearfix">
+            <div class="name-row">
+              <span class="label">Product Name</span>
+              <span class="value">Voucherify sample product</span>
+            </div>
+
+            <div class="count-row">
+              <span class="label">Products Count</span>
+                  <span class="input-value">
+                    <input id="products-count" name="products-count" value="1" type="text"/>
+                  </span>
+            </div>
+
+            <div class="price-row">
+              <span class="label">Total price</span>
+              <span class="value">
+                <span id="old-total-price" class="old-price-value">0</span>
+                <span id="total-price" class="price-value">0</span>
+                <span class="price-currency">PLN</span>
+              </span>
+            </div>
+
+            <div class="buy-row">
+              <button id="buy-product-button" class="buy-button">Buy It!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="main-footer wrapper">
+      <div class="footer-description">Coded by <a href="http://www.rspective.com" rel="noopener" target="_blank" title="rspective">rspective</a></div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
-    <script src="/libs/voucherify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/voucherify.js/1.4.5/voucherify.min.js"></script>
     <script>
       (function (window) {
         'use strict'
 
+        window.userIdentity = {{ userIdentity | safe | json }}
         window.clientConfig = {{ clientConfig | safe | json }}
+
       })(window)
     </script>
     <script src="/scripts.js"></script>
