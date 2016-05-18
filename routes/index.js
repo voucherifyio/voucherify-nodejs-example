@@ -7,11 +7,11 @@ const voucherifyClient = require('voucherify')
 const applicationKeys = config.get('voucherifyNodeJsExampleApp.applicationKeys')
 const clientSideKeys = config.get('voucherifyNodeJsExampleApp.clientSideKeys')
 
-const email = config.get('voucherifyNodeJsExampleApp.email') || process.env.EMAIL
-const applicationId = applicationKeys.applicationId || process.env.APPLICATION_ID
-const applicationSecretKey = applicationKeys.applicationSecretKey || process.env.APPLICATION_SECRET_KEY
-const clientApplicationId = clientSideKeys.clientApplicationId || process.env.CLIENT_APPLICATION_ID
-const clientPublicKey = clientSideKeys.clientPublicKey || process.env.CLIENT_PUBLIC_KEY
+const email = process.env.EMAIL || config.get('voucherifyNodeJsExampleApp.email')
+const applicationId = process.env.APPLICATION_ID || applicationKeys.applicationId
+const applicationSecretKey = process.env.APPLICATION_SECRET_KEY || applicationKeys.applicationSecretKey
+const clientApplicationId = process.env.CLIENT_APPLICATION_ID || clientSideKeys.clientApplicationId
+const clientPublicKey = process.env.CLIENT_PUBLIC_KEY || clientSideKeys.clientPublicKey
 
 const voucherify = voucherifyClient({
   applicationId: applicationId,
