@@ -28,33 +28,19 @@
       return _self
     }
 
-    this.getPrice = function () {
-      return this.price
-    }
-
-    this.getCount = function () {
-      return this.count
-    }
-
     return this.init(price)
   }
 
-  var VoucherCode = function (discountChangeHandler) {
+  var VoucherCode = function (identity, discountChangeHandler) {
     this.voucherCode = null
+
+    this.identity = null
 
     this.trackingId = null
 
     this.valid = false
 
     this.res = null
-
-    this.getCode = function () {
-      return this.voucherCode
-    }
-
-    this.getTrackingId = function () {
-      return this.trackingId
-    }
 
     this.isValid = function () {
       return this.valid === true
@@ -72,18 +58,17 @@
     }
 
     this.init = function () {
-      var _self = this
-
-      _self.discountChangeHandler = discountChangeHandler
+      this.identity = identity
+      this.discountChangeHandler = discountChangeHandler
 
       Voucherify.initialize(clientConfig.clientApplicationId, clientConfig.clientPublicKey)
-      Voucherify.setIdentity('gustav@purpleson.com')
+      Voucherify.setIdentity(this.identity)
       Voucherify.render('#voucher-checkout', {
         textPlaceholder: 'e.g. Testing7fjWdr',
-        onValidated: _self.onValidatedHandler.bind(_self)
+        onValidated: this.onValidatedHandler.bind(this)
       })
 
-      return _self
+      return this
     }
 
     return this.init()
@@ -109,22 +94,25 @@
         }
       })
 
-      _self.voucher = new VoucherCode(function (res) {
+      _self.voucher = new VoucherCode('user@identity', function (res) {
         _self.res = res
         _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-        _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.getCount() * _self.product.getPrice(), _self.res))
+        _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
       })
 
-      _self.setTotalPrice(_self.product.getCount() * _self.product.getPrice())
+      _self.setTotalPrice(_self.product.count * _self.product.price)
 
       $('#buy-product-button').on('click', function () {
-        if (_self.voucher.isValid() && confirm('Czy chcesz wykorzystać ten Voucher?')) {
-          redeemVoucher(_self.voucher.getCode(), _self.voucher.getTrackingId())
+        if (_self.voucher.isValid() && confirm('Would you like to redeem this voucher?') ||
+          !_self.voucher.isValid() && confirm('Would you like to buy without discount?')) {
+          redeemVoucher(_self.voucher.voucherCode, _self.voucher.trackingId)
             .done(function (res) {
-              console.log(res)
+              console.log('res', res)
+              console.log('totalPrice', _self.totalPrice)
+              console.log('discountPrice', _self.discountPrice)
             })
             .fail(function (err) {
-              console.log(err)
+              console.error(err)
             })
         }
       })
@@ -160,7 +148,7 @@
           .show(500)
       }
 
-      $('#regular-price').text(_self.product.getPrice().toFixed(2))
+      $('#regular-price').text(_self.product.price.toFixed(2))
       $('#discount-price').text(_self.discount.toFixed(2) * -1)
       $('#old-total-price').text(_self.totalPrice.toFixed(2))
       $('#total-price').text((_self.discountPrice || _self.totalPrice).toFixed(2))
