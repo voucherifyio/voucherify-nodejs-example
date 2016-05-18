@@ -5,7 +5,6 @@
   "logo": "http://voucherify-nodejs-example.herokuapp.com/voucherify.png",
   "keywords": ["voucherify", "node", "heroku", "express"],
   "env": {
-    "NODE_ENV": "production",
     "APPLICATION_ID": {
       "description": "Voucherify application id",
       "value": ""

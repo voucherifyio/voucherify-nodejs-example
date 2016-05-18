@@ -8,8 +8,8 @@ const applicationKeys = config.get('voucherifyNodeJsExampleApp.applicationKeys')
 const clientSideKeys = config.get('voucherifyNodeJsExampleApp.clientSideKeys')
 
 const voucherify = voucherifyClient({
-  applicationId: applicationKeys.applicationId,
-  clientSecretKey: applicationKeys.applicationSecretKey
+  applicationId: applicationKeys.applicationId || config.util.getEnv('APPLICATION_ID'),
+  clientSecretKey: applicationKeys.applicationSecretKey || config.util.getEnv('APPLICATION_SECRET_KEY')
 })
 
 const Routes = function () {
@@ -19,7 +19,10 @@ const Routes = function () {
     console.log('GET /')
 
     res.render('index', {
-      clientConfig: config.get('voucherifyNodeJsExampleApp.clientSideKeys')
+      clientConfig: {
+        clientApplicationId: clientSideKeys.clientApplicationId || config.util.getEnv('CLIENT_APPLICATION_ID'),
+        clientPublicKey: clientSideKeys.clientPublicKey || config.util.getEnv('CLIENT_PUBLIC_KEY')
+      }
     })
   })
 
