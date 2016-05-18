@@ -48,7 +48,7 @@
 
     this.onValidatedHandler = function (res) {
       this.res = res
-      this.voucherCode = $('#voucher-checkout .voucherifyCode').val()
+      this.voucherCode = res.code
       this.trackingId = res.tracking_id
       this.valid = res.valid
 
