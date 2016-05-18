@@ -107,9 +107,7 @@
           !_self.voucher.isValid() && confirm('Would you like to buy without discount?')) {
           redeemVoucher(_self.voucher.voucherCode, _self.voucher.trackingId)
             .done(function (res) {
-              console.log('res', res)
-              console.log('totalPrice', _self.totalPrice)
-              console.log('discountPrice', _self.discountPrice)
+              _self.showSummary(res)
             })
             .fail(function (err) {
               console.error(err)
@@ -152,6 +150,18 @@
       $('#discount-price').text(_self.discount.toFixed(2) * -1)
       $('#old-total-price').text(_self.totalPrice.toFixed(2))
       $('#total-price').text((_self.discountPrice || _self.totalPrice).toFixed(2))
+    }
+
+    _self.showSummary = function (res) {
+      var $summaryTab = $('#summary-tab')
+      var summaryMessage = '<b>Congratulations!</b> Your voucher has been redeemed successfully! Final price was <b>' + (_self.discountPrice || _self.totalPrice).toFixed(2) + ' EUR</b>'
+      
+      $('#summary-message', $summaryTab).html(summaryMessage)
+      $('#response-code', $summaryTab).text(JSON.stringify(res, null, 2))
+
+      $('#shop-tab').hide(500, function () {
+        $summaryTab.show(500)
+      })
     }
 
     return _self.init()

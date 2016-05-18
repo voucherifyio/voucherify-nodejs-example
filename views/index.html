@@ -12,47 +12,56 @@
     <title>Example Express App which uses Voucherfiy.io SDK</title>
   </head>
   <body>
-
     <header class="main-header wrapper">
-      <img src="voucherify_logo.png" class="voucherify-logo" alt="voucherify-logo" />
+      <img src="voucherify_logo.png" class="voucherify-logo" alt="voucherify-logo"/>
       <h1 class="site-title">Voucherify Sample Shop</h1>
     </header>
 
     <section class="product-item wrapper">
-      <div class="notification-box">
-        <div class="message"></div>
-      </div>
       <div class="clearfix">
         <div class="product-image-column">
           <figure class="product-img">
-            <img src="/voucherify_product.jpg" alt="product-img" />
+            <img src="/voucherify_product.jpg" alt="product-img"/>
           </figure>
           <div class="voucher-checkout-box" id="voucher-checkout"></div>
         </div>
-        <div class="product-description-column">
+
+        <div id="summary-tab" class="summary-column">
+          <div class="tick-icon">OK</div>
+          <div id="summary-message" class="message"></div>
+          <div class="response">
+            <pre id="response-code" class="code"></pre>
+          </div>
+        </div>
+
+        <div id="shop-tab" class="product-description-column">
           <h3 class="product-name">Voucherify sample product</h3>
-            <span class="product-price">
-              Regular Price:&nbsp;
-              <span id="regular-price" class="price-value">0</span>
-              <span class="price-currency">PLN</span>
-            </span>
-            <span class="discount-price">
-              Discount:&nbsp;
-              <span id="discount-price" class="price-value">0</span>
-              <span class="price-currency">PLN</span>
-            </span>
-          <p class="product-description">This example aim to show you what profits can you gain with <a href="http://voucherify.io" rel="noopener" target="_blank" title="Voucherify">Voucherify.io</a>. Make sample transaction using code generated in <a href="https://app.voucherify.io"  rel="noopener" target="_blank" title="Voucherify platform">Voucherify Panel</a> to see Voucherify it in action!</p>
+          <span class="product-price">
+            Regular Price:&nbsp;
+            <span id="regular-price" class="price-value">0</span>
+            <span class="price-currency">EUR</span>
+          </span>
+          <span class="discount-price">
+            Discount:&nbsp;
+            <span id="discount-price" class="price-value">0</span>
+            <span class="price-currency">EUR</span>
+          </span>
+
+          <p class="product-description">This example aim to show you what profits can you gain with <a href="http://voucherify.io" rel="noopener" target="_blank" title="Voucherify">Voucherify.io</a>. Make sample transaction using code generated in <a href="https://app.voucherify.io" rel="noopener" target="_blank" title="Voucherify platform">Voucherify Panel</a> to see Voucherify it in action!</p>
+
           <div class="clearfix">
             <div class="name-row">
               <span class="label">Product Name</span>
               <span class="value">Voucherify sample product</span>
             </div>
+
             <div class="count-row">
               <span class="label">Products Count</span>
-              <span class="input-value">
-                <input id="products-count" name="products-count" value="1" type="text" />
-              </span>
+                  <span class="input-value">
+                    <input id="products-count" name="products-count" value="1" type="text"/>
+                  </span>
             </div>
+
             <div class="price-row">
               <span class="label">Total price</span>
               <span class="value">
@@ -61,6 +70,7 @@
                 <span class="price-currency">PLN</span>
               </span>
             </div>
+
             <div class="buy-row">
               <button id="buy-product-button" class="buy-button">Buy It!</button>
             </div>
