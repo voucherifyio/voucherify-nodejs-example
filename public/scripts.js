@@ -1,21 +1,21 @@
 (function (window, $, Voucherify, clientConfig) {
   'use strict'
 
-  const redeemVoucher = function (voucherCode, trackingId) {
+  var redeemVoucher = function (voucherCode, trackingId) {
     return $.post('/redeem', {
       voucher_code: voucherCode,
       tracking_id: trackingId
     })
   }
 
-  const ProductModel = function (price, countChangeHandler) {
+  var ProductModel = function (price, countChangeHandler) {
     this.price = 0
     this.count = 1
 
-    const $productsCountInput = $('#products-count')
+    var $productsCountInput = $('#products-count')
 
     this.init = function (price) {
-      const _self = this
+      var _self = this
       _self.price = price
       _self.count = $productsCountInput.val()
       _self.countChangeHandler = countChangeHandler
@@ -39,12 +39,14 @@
     return this.init(price)
   }
 
-  const VoucherCode = function (discountChangeHandler) {
+  var VoucherCode = function (discountChangeHandler) {
     this.voucherCode = null
 
     this.trackingId = null
 
     this.valid = false
+
+    this.res = null
 
     this.getCode = function () {
       return this.voucherCode
@@ -59,17 +61,18 @@
     }
 
     this.onValidatedHandler = function (res) {
+      this.res = res
       this.voucherCode = $('#voucher-checkout .voucherifyCode').val()
       this.trackingId = res.tracking_id
       this.valid = res.valid
 
-      this.discountChangeHandler(res)
+      this.discountChangeHandler(this.res)
 
       return this
     }
 
     this.init = function () {
-      const _self = this
+      var _self = this
 
       _self.discountChangeHandler = discountChangeHandler
 
@@ -86,8 +89,8 @@
     return this.init()
   }
   
-  const VoucherifySampleShop = function () {
-    const _self = this
+  var VoucherifySampleShop = function () {
+    var _self = this
 
     _self.totalPrice = 0
     _self.discount = 0
