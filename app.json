@@ -3,5 +3,24 @@
   "description": "A sample Node.js implementation of Voucherify SDK",
   "repository": "https://github.com/voucherifyio/voucherify-nodejs-example",
   "logo": "http://voucherify-nodejs-example.herokuapp.com/voucherify.png",
-  "keywords": ["voucherify", "node", "heroku", "express"]
+  "keywords": ["voucherify", "node", "heroku", "express"],
+  "env": {
+    "NODE_ENV": "production",
+    "APPLICATION_ID": {
+      "description": "Voucherify application id",
+      "value": ""
+    },
+    "APPLICATION_SECRET_KEY": {
+      "description": "Voucherify application secret key",
+      "value": ""
+    },
+    "CLIENT_APPLICATION_ID": {
+      "description": "Voucherify client application id",
+      "value": ""
+    },
+    "CLIENT_PUBLIC_KEY": {
+      "description": "Voucherify client public key",
+      "value": ""
+    }
+  }
 }
