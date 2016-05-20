@@ -2,6 +2,28 @@
   "name": "Voucherify Node.js Example",
   "description": "A sample Node.js implementation of Voucherify SDK",
   "repository": "https://github.com/voucherifyio/voucherify-nodejs-example",
-  "logo": "http://voucherify-nodejs-example.herokuapp.com/voucherify.png",
-  "keywords": ["voucherify", "node", "heroku", "express"]
+  "logo": "https://raw.githubusercontent.com/voucherifyio/voucherify-nodejs-example/master/public/voucherify.png",
+  "keywords": ["voucherify", "node", "heroku", "express"],
+  "env": {
+    "EMAIL": {
+      "description": "Leave your Email address to check the voucher tracking feature!",
+      "value": "email@example.com"
+    },
+    "APPLICATION_ID": {
+      "description": "Voucherify Application ID",
+      "value": ""
+    },
+    "APPLICATION_SECRET_KEY": {
+      "description": "Voucherify Application Secret Key",
+      "value": ""
+    },
+    "CLIENT_APPLICATION_ID": {
+      "description": "Voucherify Client Application ID",
+      "value": ""
+    },
+    "CLIENT_PUBLIC_KEY": {
+      "description": "Voucherify Client Public Key",
+      "value": ""
+    }
+  }
 }

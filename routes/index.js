@@ -7,9 +7,15 @@ const voucherifyClient = require('voucherify')
 const applicationKeys = config.get('voucherifyNodeJsExampleApp.applicationKeys')
 const clientSideKeys = config.get('voucherifyNodeJsExampleApp.clientSideKeys')
 
+const email = process.env.EMAIL || config.get('voucherifyNodeJsExampleApp.email')
+const applicationId = process.env.APPLICATION_ID || applicationKeys.applicationId
+const applicationSecretKey = process.env.APPLICATION_SECRET_KEY || applicationKeys.applicationSecretKey
+const clientApplicationId = process.env.CLIENT_APPLICATION_ID || clientSideKeys.clientApplicationId
+const clientPublicKey = process.env.CLIENT_PUBLIC_KEY || clientSideKeys.clientPublicKey
+
 const voucherify = voucherifyClient({
-  applicationId: applicationKeys.applicationId,
-  clientSecretKey: applicationKeys.applicationSecretKey
+  applicationId: applicationId,
+  clientSecretKey: applicationSecretKey
 })
 
 const Routes = function () {
@@ -19,7 +25,11 @@ const Routes = function () {
     console.log('GET /')
 
     res.render('index', {
-      clientConfig: config.get('voucherifyNodeJsExampleApp.clientSideKeys')
+      userIdentity: email,
+      clientConfig: {
+        clientApplicationId: clientApplicationId,
+        clientPublicKey: clientPublicKey
+      }
     })
   })
 
