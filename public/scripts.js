@@ -64,7 +64,8 @@
       Voucherify.initialize(clientConfig.clientApplicationId, clientConfig.clientPublicKey)
       Voucherify.setIdentity(this.identity)
       Voucherify.render('#voucher-checkout', {
-        textPlaceholder: 'e.g. Testing7fjWdr',
+        textValidate: 'Validate voucher',
+        textPlaceholder: 'Enter voucher code',
         onValidated: this.onValidatedHandler.bind(this)
       })
 

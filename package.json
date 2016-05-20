@@ -4,17 +4,25 @@
   "description": "A sample Node.js implementation of Voucherify SDK",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 index.js",
+    "test": "echo 'Tests are not defined yet' && exit 0",
+    "postinstall": "echo 'No postinstall scripts yet' && exit 0",
+    "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies' && exit 0" ,
+    "heroku-postbuild": "npm run generate-vouchers",
+    "generate-vouchers": "node ops/createVouchers.js"
   },
   "dependencies": {
+    "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
     "config": "^1.20.1",
     "express": "^4.13.3",
+    "lodash": "^4.12.0",
+    "moment": "^2.13.0",
     "swig": "^1.4.2",
     "voucherify": "^1.10.0"
   },
   "engines": {
-    "node": "4.0.0"
+    "node": "4.2.6"
   },
   "repository": {
     "type": "git",
