@@ -1,6 +1,13 @@
 (function (window, $, Voucherify, clientConfig, userIdentity) {
   'use strict'
 
+  const sampleProductPrice = 32.40
+  const sampleShipmentPrice = 12
+
+  var getVouchers = function () {
+    return $.get('/vouchers.json')
+  }
+
   var redeemVoucher = function (voucherCode, trackingId) {
     return $.post('/redeem', {
       voucher_code: voucherCode,
@@ -64,7 +71,8 @@
       Voucherify.initialize(clientConfig.clientApplicationId, clientConfig.clientPublicKey)
       Voucherify.setIdentity(this.identity)
       Voucherify.render('#voucher-checkout', {
-        textPlaceholder: 'e.g. Testing7fjWdr',
+        textValidate: 'Validate voucher',
+        textPlaceholder: 'Use your voucher code here',
         onValidated: this.onValidatedHandler.bind(this)
       })
 
@@ -73,19 +81,22 @@
 
     return this.init()
   }
-  
+
   var VoucherifySampleShop = function (identity) {
     var _self = this
 
+    _self.shipmentPrice = 0
+    _self.summaryPrice = 0
     _self.totalPrice = 0
     _self.discount = 0
     _self.discountPrice = 0
     _self.product = null
     _self.voucher = null
+    _self.vouchersList = []
     _self.res = null
 
     _self.init = function () {
-      _self.product = new ProductModel(32.43, function (count, price) {
+      _self.product = new ProductModel(sampleProductPrice, function (count, price) {
         _self.setTotalPrice(count * price)
 
         if (_self.res !== null) {
@@ -102,6 +113,10 @@
 
       _self.setTotalPrice(_self.product.count * _self.product.price)
 
+      _self.setShipmentPrice(sampleShipmentPrice)
+
+      _self.setSummaryPrice(_self.totalPrice + _self.shipmentPrice)
+
       $('#buy-product-button').on('click', function () {
         if (_self.voucher.isValid() && confirm('Would you like to redeem this voucher?') ||
           !_self.voucher.isValid() && confirm('Would you like to buy without discount?')) {
@@ -114,6 +129,14 @@
             })
         }
       })
+
+      getVouchers()
+        .done((vouchersList) => {
+          _self.setVouchersList(vouchersList)
+        })
+        .fail((err) => {
+          console.error(err)
+        })
 
       return _self
     }
@@ -133,6 +156,21 @@
       _self.render()
     }
 
+    _self.setVouchersList = function (newVouchersList) {
+      _self.vouchersList = newVouchersList
+      _self.render()
+    }
+
+    _self.setSummaryPrice = function (summaryPrice) {
+      _self.summaryPrice = summaryPrice
+      _self.render()
+    }
+
+    _self.setShipmentPrice = function (shipmentPrice) {
+      _self.shipmentPrice = shipmentPrice
+      _self.render()
+    }
+
     _self.render = function () {
       if (_self.discount === 0) {
         $('.old-price-value')
@@ -147,15 +185,76 @@
       }
 
       $('#regular-price').text(_self.product.price.toFixed(2))
-      $('#discount-price').text(_self.discount.toFixed(2) * -1)
+      $('#discount-price').text((_self.discount * -1).toFixed(2))
       $('#old-total-price').text(_self.totalPrice.toFixed(2))
+      $('#summary-price').text(_self.summaryPrice.toFixed(2))
+      $('#shipment-price').text(_self.shipmentPrice.toFixed(2))
       $('#total-price').text((_self.discountPrice || _self.totalPrice).toFixed(2))
+
+      $('#vouchers-list').html(_self.vouchersList.map((voucher) => {
+        return $('<div>')
+          .addClass('voucher-item')
+          .html(function () {
+            var result = []
+
+            result.push($('<div>')
+              .addClass('voucher-code')
+              .append('<span><b>' + voucher.code + '</b></span>'))
+
+            switch (voucher.discount.type) {
+              case 'AMOUNT' :
+                result.push($('<div>')
+                  .addClass('voucher-amount')
+                  .append('<i class="fa fa-money"></i>')
+                  .append('<span class="amount-off">' + (voucher.discount.amount_off / 100).toFixed(2) + '</span>'))
+                break
+              case 'PERCENT' :
+                result.push($('<div>')
+                  .addClass('voucher-percent')
+                  .append('<span class="percent-off">' + voucher.discount.percent_off + '</span>')
+                  .append('<i class="fa fa-percent"></i>'))
+                break
+              case 'UNIT' :
+                result.push($('<div>')
+                  .addClass('voucher-unit')
+                  .append('<i class="fa fa-th"></i>')
+                  .append('<span class="unit-off">' + voucher.discount.unit_off + '</span>')
+                  .append('<span class="unit-type">' + voucher.discount.unit_type + '</span>'))
+                break
+            }
+
+            var voucherDiscount = Voucherify.utils.calculateDiscount(_self.totalPrice, voucher)
+
+            if (voucherDiscount) {
+              result.push($('<div>')
+                .addClass('voucher-discount')
+                .append('<b>Discount</b>: ')
+                .append('<span>' + voucherDiscount + '</span>'))
+            }
+
+            if (voucher.redemption.quantity) {
+              result.push($('<div>')
+                .addClass('voucher-redemption')
+                .append('<b>Used</b>: ')
+                .append('<span>' + voucher.redemption.redemption_entries.length + '/' + voucher.redemption.quantity + ' times</span>'))
+            }
+
+            if (voucher.expiration_date) {
+              result.push($('<div>')
+                .addClass('voucher-expiration')
+                .append('<b>Expire</b>: ')
+                .append('<span>' + voucher.expiration_date + '</span>'))
+            }
+
+            return result
+          })
+      }))
     }
 
     _self.showSummary = function (res) {
       var $summaryTab = $('#summary-tab')
       var summaryMessage = '<b>Congratulations!</b> Your voucher has been redeemed successfully! Final price was <b>' + (_self.discountPrice || _self.totalPrice).toFixed(2) + ' EUR</b>'
-      
+
       $('#summary-message', $summaryTab).html(summaryMessage)
       $('#response-code', $summaryTab).text(JSON.stringify(res, null, 2))
 

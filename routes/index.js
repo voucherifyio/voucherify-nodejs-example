@@ -1,22 +1,21 @@
 'use strict'
 
-const config = require('config')
+const _ = require('lodash')
+const config = require('config').get('voucherifyNodeJsExampleApp')
 const express = require('express')
-const voucherifyClient = require('voucherify')
 
-const applicationKeys = config.get('voucherifyNodeJsExampleApp.applicationKeys')
-const clientSideKeys = config.get('voucherifyNodeJsExampleApp.clientSideKeys')
+const voucherifyService = require('./../lib/voucherifyService')
 
-const email = process.env.EMAIL || config.get('voucherifyNodeJsExampleApp.email')
-const applicationId = process.env.APPLICATION_ID || applicationKeys.applicationId
-const applicationSecretKey = process.env.APPLICATION_SECRET_KEY || applicationKeys.applicationSecretKey
-const clientApplicationId = process.env.CLIENT_APPLICATION_ID || clientSideKeys.clientApplicationId
-const clientPublicKey = process.env.CLIENT_PUBLIC_KEY || clientSideKeys.clientPublicKey
+const clientSideKeys = config.get('clientSideKeys')
 
-const voucherify = voucherifyClient({
-  applicationId: applicationId,
-  clientSecretKey: applicationSecretKey
-})
+const email = process.env.EMAIL || config.get('email')
+const clientApplicationId = process.env.CLIENT_APPLICATION_ID || clientSideKeys.get('clientApplicationId')
+const clientPublicKey = process.env.CLIENT_PUBLIC_KEY || clientSideKeys.get('clientPublicKey')
+
+const prepareUnhandledErrorResponse = (err, res) => {
+  console.error('Error: %s', err)
+  return res.status(500).json({message: 'Internal Server Error!'})
+}
 
 const Routes = function () {
   const router = express.Router()
@@ -33,20 +32,27 @@ const Routes = function () {
     })
   })
 
+  router.get('/vouchers.json', (req, res) => {
+    console.log('GET /vouchers.json')
+
+    voucherifyService.getValidVouchers()
+      .then((result) => {
+        res.json(result)
+      })
+      .catch((err) => prepareUnhandledErrorResponse(err, res))
+  })
+
   router.post('/redeem', (req, res) => {
     console.log('POST /redeem', req.body)
 
     const voucherCode = req.body.voucher_code
     const userTrackingId = req.body.tracking_id
 
-    voucherify.redeem(voucherCode, userTrackingId)
+    voucherifyService.redeemVoucher(voucherCode, userTrackingId)
       .then((result) => {
         res.json(result)
       })
-      .catch((err) => {
-        console.error('Error: %s', err)
-        res.status(500).json({message: 'Internal Server Error!'})
-      })
+      .catch((err) => prepareUnhandledErrorResponse(err, res))
   })
 
   return router
