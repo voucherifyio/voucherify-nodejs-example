@@ -89,14 +89,18 @@
   var VoucherifySampleShop = function (identity) {
     var _self = this
 
+    function setDiscountForCashVouchers () {
+      if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
+        _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
+        _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
+      }
+    }
+
     _self.init = function () {
       _self.product = new ProductModel(sampleProductPrice, function (count, price) {
         _self.setTotalPrice(count * price)
 
-        if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
-          _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
-        }
+        setDiscountForCashVouchers()
       })
 
       _self.voucher = new VoucherCode(identity, function (res) {
@@ -106,10 +110,7 @@
           _self.setFreeShipment(true)
         }
 
-        if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
-          _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
-        }
+        setDiscountForCashVouchers()
       })
 
       _self.shipmentPrice = sampleShipmentPrice
