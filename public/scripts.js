@@ -16,24 +16,26 @@
   }
 
   var ProductModel = function (price, countChangeHandler) {
-    this.price = 0
-    this.count = 1
+    var _self = this
 
-    var $productsCountInput = $('#products-count')
-
-    this.init = function (price) {
-      var _self = this
+    _self.init = function (price) {
       _self.price = price
-      _self.count = $productsCountInput.val()
+      _self.count = 1
       _self.countChangeHandler = countChangeHandler
 
-      $productsCountInput.on('change', function () {
-        _self.count = $(this).val()
-        _self.countChangeHandler(_self.count, _self.price)
-      })
+      _self.render()
 
       return _self
     }
+
+    _self.render = function () {
+      $('#products-count').val(_self.count)
+    }
+
+    $('#products-count').on('change', function () {
+      _self.count = $(this).val()
+      _self.countChangeHandler(_self.count, _self.price)
+    })
 
     return this.init(price)
   }
@@ -68,6 +70,8 @@
       this.identity = identity
       this.discountChangeHandler = discountChangeHandler
 
+      $('#voucher-checkout').html('')
+
       Voucherify.initialize(clientConfig.clientApplicationId, clientConfig.clientPublicKey)
       Voucherify.setIdentity(this.identity)
       Voucherify.render('#voucher-checkout', {
@@ -85,53 +89,41 @@
   var VoucherifySampleShop = function (identity) {
     var _self = this
 
-    _self.shipmentPrice = 0
-    _self.freeShipment = false
-    _self.totalPrice = 0
-    _self.discount = 0
-    _self.discountPrice = 0
-    _self.product = null
-    _self.voucher = null
-    _self.vouchersList = []
-    _self.res = null
+    function setDiscountForCashVouchers () {
+      if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
+        _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
+        _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
+      }
+    }
 
     _self.init = function () {
       _self.product = new ProductModel(sampleProductPrice, function (count, price) {
         _self.setTotalPrice(count * price)
 
-        if (_self.res !== null) {
-          _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
-        }
+        setDiscountForCashVouchers()
       })
 
       _self.voucher = new VoucherCode(identity, function (res) {
         _self.res = res
 
-        if( _self.res.discount.type === "UNIT" && _self.res.valid === true) {
+        if(!_self.freeShipment && _self.res.discount.type === "UNIT" && _self.res.valid === true) {
           _self.setFreeShipment(true)
-        } else {
-          _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
         }
+
+        setDiscountForCashVouchers()
       })
 
-      _self.setTotalPrice(_self.product.count * _self.product.price)
+      _self.shipmentPrice = sampleShipmentPrice
 
-      _self.setShipmentPrice(sampleShipmentPrice)
+      _self.freeShipment = false
 
-      $('#buy-product-button').on('click', function () {
-        if (_self.voucher.isValid() && confirm('Would you like to redeem this voucher?') ||
-          !_self.voucher.isValid() && confirm('Would you like to buy without discount?')) {
-          redeemVoucher(_self.voucher.voucherCode, _self.voucher.trackingId)
-            .done(function (res) {
-              _self.showSummary(res)
-            })
-            .fail(function (err) {
-              console.error(err)
-            })
-        }
-      })
+      _self.totalPrice = _self.product.count * _self.product.price
+
+      _self.discount = 0
+
+      _self.discountPrice = 0
+
+      _self.res = null
 
       getVouchers()
         .done((vouchersList) => {
@@ -261,7 +253,8 @@
 
     _self.showSummary = function (res) {
       var $summaryTab = $('#summary-tab')
-      var summaryMessage = '<b>Congratulations!</b> Your voucher has been redeemed successfully! Final price was <b>' + (_self.discountPrice || _self.totalPrice).toFixed(2) + ' EUR</b>'
+      var summaryPrice = ((_self.discountPrice || _self.totalPrice) + (_self.freeShipment ? 0 :_self.shipmentPrice)).toFixed(2)
+      var summaryMessage = '<b>Congratulations!</b> Your voucher has been redeemed successfully! Final price was <b>' + summaryPrice + ' EUR</b>'
 
       $('#summary-message', $summaryTab).html(summaryMessage)
       $('#response-code', $summaryTab).text(JSON.stringify(res, null, 2))
@@ -270,6 +263,31 @@
         $summaryTab.show(500)
       })
     }
+
+    _self.showShop = function () {
+      $('#summary-tab').hide(500, function () {
+        $('#shop-tab').show(500)
+      })
+
+      _self.init()
+    }
+
+    $('#buy-product-button').on('click', function () {
+      if (_self.voucher.isValid() && confirm('Would you like to redeem this voucher?') ||
+        !_self.voucher.isValid() && confirm('Would you like to buy without discount?')) {
+        redeemVoucher(_self.voucher.voucherCode, _self.voucher.trackingId)
+          .done(function (res) {
+            _self.showSummary(res)
+          })
+          .fail(function (err) {
+            console.error(err)
+          })
+      }
+    })
+
+    $('#back-button').on('click', function () {
+      _self.showShop()
+    })
 
     return _self.init()
   }
