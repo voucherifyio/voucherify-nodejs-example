@@ -131,6 +131,7 @@ body {
 .vouchers-list .voucher-item .voucher-percent,
 .vouchers-list .voucher-item .voucher-amount {
     font-size: 15px;
+    line-height: 2.7em;
 }
 
 .vouchers-list .voucher-item .voucher-percent .percent-off {
@@ -146,7 +147,9 @@ body {
 .vouchers-list .voucher-item .voucher-unit .unit-off {
     font-weight: bold;
     margin-right: 5px;
-    font-size: 20px;
+    font-size: 17px;
+    width: 100%;
+    display: inline-block;
 }
 
 .vouchers-list .voucher-item .voucher-redemption {
@@ -315,6 +318,16 @@ body {
 .shipment-row .value {
     width: 40%;
     text-align: right;
+}
+
+.shipment-row .price-value.free-active {
+    text-decoration: line-through;
+}
+
+.shipment-row .free-label {
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 .summary-row {

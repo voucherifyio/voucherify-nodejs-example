@@ -86,6 +86,7 @@
     var _self = this
 
     _self.shipmentPrice = 0
+    _self.freeShipment = false
     _self.summaryPrice = 0
     _self.totalPrice = 0
     _self.discount = 0
@@ -107,15 +108,18 @@
 
       _self.voucher = new VoucherCode(identity, function (res) {
         _self.res = res
-        _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-        _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
+
+        if( _self.res.discount.type === "UNIT" && _self.res.valid === true) {
+          _self.setFreeShipment(true)
+        } else {
+          _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
+          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
+        }
       })
 
       _self.setTotalPrice(_self.product.count * _self.product.price)
 
       _self.setShipmentPrice(sampleShipmentPrice)
-
-      _self.setSummaryPrice(_self.totalPrice + _self.shipmentPrice)
 
       $('#buy-product-button').on('click', function () {
         if (_self.voucher.isValid() && confirm('Would you like to redeem this voucher?') ||
@@ -171,6 +175,11 @@
       _self.render()
     }
 
+    _self.setFreeShipment = function (freeShipment) {
+      _self.freeShipment = freeShipment
+      _self.render()
+    }
+
     _self.render = function () {
       if (_self.discount === 0) {
         $('.old-price-value')
@@ -184,10 +193,22 @@
           .show(500)
       }
 
+      if (_self.freeShipment) {
+        $('#free-shipment-label')
+          .show(500)
+        $('#shipment-price')
+          .addClass('free-active')
+      } else {
+        $('#free-shipment-label')
+          .hide(0)
+        $('#shipment-price')
+          .removeClass('free-active')
+      }
+
       $('#regular-price').text(_self.product.price.toFixed(2))
       $('#discount-price').text((_self.discount * -1).toFixed(2))
       $('#old-total-price').text(_self.totalPrice.toFixed(2))
-      $('#summary-price').text(_self.summaryPrice.toFixed(2))
+      $('#summary-price').text((_self.totalPrice + (_self.freeShipment ? 0 :_self.shipmentPrice)).toFixed(2))
       $('#shipment-price').text(_self.shipmentPrice.toFixed(2))
       $('#total-price').text((_self.discountPrice || _self.totalPrice).toFixed(2))
 
@@ -218,8 +239,8 @@
                 result.push($('<div>')
                   .addClass('voucher-unit')
                   .append('<i class="fa fa-th"></i>')
-                  .append('<span class="unit-off">' + voucher.discount.unit_off + '</span>')
-                  .append('<span class="unit-type">' + voucher.discount.unit_type + '</span>'))
+                  .append('<span class="unit-off">Free</span>')
+                  .append('<span class="unit-type">Shipment</span>'))
                 break
             }
 
@@ -237,13 +258,6 @@
                 .addClass('voucher-redemption')
                 .append('<b>Used</b>: ')
                 .append('<span>' + voucher.redemption.redemption_entries.length + '/' + voucher.redemption.quantity + ' times</span>'))
-            }
-
-            if (voucher.expiration_date) {
-              result.push($('<div>')
-                .addClass('voucher-expiration')
-                .append('<b>Expire</b>: ')
-                .append('<span>' + voucher.expiration_date + '</span>'))
             }
 
             return result
