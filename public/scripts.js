@@ -87,7 +87,6 @@
 
     _self.shipmentPrice = 0
     _self.freeShipment = false
-    _self.summaryPrice = 0
     _self.totalPrice = 0
     _self.discount = 0
     _self.discountPrice = 0
@@ -165,11 +164,6 @@
       _self.render()
     }
 
-    _self.setSummaryPrice = function (summaryPrice) {
-      _self.summaryPrice = summaryPrice
-      _self.render()
-    }
-
     _self.setShipmentPrice = function (shipmentPrice) {
       _self.shipmentPrice = shipmentPrice
       _self.render()
@@ -208,9 +202,9 @@
       $('#regular-price').text(_self.product.price.toFixed(2))
       $('#discount-price').text((_self.discount * -1).toFixed(2))
       $('#old-total-price').text(_self.totalPrice.toFixed(2))
-      $('#summary-price').text((_self.totalPrice + (_self.freeShipment ? 0 :_self.shipmentPrice)).toFixed(2))
       $('#shipment-price').text(_self.shipmentPrice.toFixed(2))
-      $('#total-price').text((_self.discountPrice || _self.totalPrice).toFixed(2))
+      $('#total-price').text(((_self.discountPrice || _self.totalPrice)).toFixed(2))
+      $('#summary-price').text(((_self.discountPrice || _self.totalPrice) + (_self.freeShipment ? 0 :_self.shipmentPrice)).toFixed(2))
 
       $('#vouchers-list').html(_self.vouchersList.map((voucher) => {
         return $('<div>')
