@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/voucherify.js/1.4.5/voucherify.min.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -23,7 +24,7 @@
           <figure class="product-img">
             <img src="/voucherify_product.jpg" alt="product-img"/>
           </figure>
-          <div class="voucher-checkout-box" id="voucher-checkout"></div>
+          <div id="voucher-checkout" class="voucher-checkout-box"></div>
         </div>
 
         <div id="summary-tab" class="summary-column">
@@ -36,18 +37,22 @@
 
         <div id="shop-tab" class="product-description-column">
           <h3 class="product-name">Voucherify sample product</h3>
+
+          <p class="product-description">This sample application aims to show you what profits you can achieve with <a href="http://voucherify.io" rel="noopener" target="_blank" title="Voucherify">Voucherify.io</a>.<br/>Use one of <b>Vouchers</b> listed below to see Voucherify in Action. Go to <a href="https://app.voucherify.io" rel="noopener" target="_blank" title="Voucherify platform">Voucherify Panel</a> to see vouchers' redemption history and many more.</p>
+
+          <div id="vouchers-list" class="vouchers-list clearfix"></div>
+
           <span class="product-price">
             Regular Price:&nbsp;
             <span id="regular-price" class="price-value">0</span>
             <span class="price-currency">EUR</span>
           </span>
+
           <span class="discount-price">
             Discount:&nbsp;
             <span id="discount-price" class="price-value">0</span>
             <span class="price-currency">EUR</span>
           </span>
-
-          <p class="product-description">This sample application aims to show you what profits you can achieve with <a href="http://voucherify.io" rel="noopener" target="_blank" title="Voucherify">Voucherify.io</a>. Go to <a href="https://app.voucherify.io" rel="noopener" target="_blank" title="Voucherify platform">Voucherify Panel</a> and generate sample Voucher to see abilities of <b>Voucherify</b>!</p>
 
           <div class="clearfix">
             <div class="name-row">
@@ -57,9 +62,9 @@
 
             <div class="count-row">
               <span class="label">Products Count</span>
-                  <span class="input-value">
-                    <input id="products-count" name="products-count" value="1" type="text"/>
-                  </span>
+              <span class="input-value">
+                <input id="products-count" name="products-count" value="1" type="text"/>
+              </span>
             </div>
 
             <div class="price-row">
@@ -67,7 +72,24 @@
               <span class="value">
                 <span id="old-total-price" class="old-price-value">0</span>
                 <span id="total-price" class="price-value">0</span>
-                <span class="price-currency">PLN</span>
+                <span class="price-currency">EUR</span>
+              </span>
+            </div>
+
+            <div class="shipment-row clearfix">
+              <span class="label">Shipment</span>
+              <span class="value">
+                <span id="free-shipment-label" class="free-label">FREE</span>
+                <span id="shipment-price" class="price-value">0</span>
+                <span class="price-currency">EUR</span>
+              </span>
+            </div>
+
+            <div class="summary-row clearfix">
+              <span class="label">Summary</span>
+              <span class="value">
+                <span id="summary-price" class="price-value">0</span>
+                <span class="price-currency">EUR</span>
               </span>
             </div>
 

@@ -105,6 +105,64 @@ body {
     overflow: auto;
 }
 
+.vouchers-list {
+    width: 100%;
+    margin: 10px 0 10px;
+}
+
+.vouchers-list .voucher-item {
+    position: relative;
+    width: 19.3%;
+    float: left;
+    padding: 0 5px;
+    background-color: #38B3A8;
+    color: #FFFFFF;
+    margin: 0.3%;
+    text-align: center;
+    height: 150px;
+    max-height: 150px;
+}
+
+.vouchers-list .voucher-item .voucher-code {
+    font-size: 20px;
+    padding: 15px 0 10px;
+}
+
+.vouchers-list .voucher-item .voucher-percent,
+.vouchers-list .voucher-item .voucher-amount {
+    font-size: 15px;
+    line-height: 2.7em;
+}
+
+.vouchers-list .voucher-item .voucher-percent .percent-off {
+    font-size: 20px;
+    line-height: 0.5em;
+}
+
+.vouchers-list .voucher-item .voucher-amount .fa,
+.vouchers-list .voucher-item .voucher-unit .fa {
+    margin-right: 5px;
+}
+
+.vouchers-list .voucher-item .voucher-unit .unit-off {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 17px;
+    width: 100%;
+    display: inline-block;
+}
+
+.vouchers-list .voucher-item .voucher-redemption {
+    font-size: 10px;
+}
+
+.vouchers-list .voucher-item .voucher-expiration  {
+    position: absolute;
+    text-align: center;
+    font-size: 10px;
+    bottom: 0;
+}
+
 .product-item .right-column {
     width: 50%;
 }
@@ -176,13 +234,13 @@ body {
 
 .price-row {
     padding: 10px 0 10px 0;
-    width: 20%;
+    width: 30%;
 }
 
 .name-row,
 .count-row {
     padding: 10px 5px 10px 0;
-    width: 40%;
+    width: 35%;
 }
 
 .name-row,
@@ -202,7 +260,7 @@ body {
 .name-row .value,
 .count-row .input-value,
 .price-row .value {
-    font-size: 21px;
+    font-size: 17px;
 }
 
 .name-row .label,
@@ -231,12 +289,67 @@ body {
 }
 
 .count-row .input-value input {
-    width: 100px;
+    width: 50px;
     padding: 5px 10px;
     border-radius: 2px;
     border: 1px solid #888888;
     position: relative;
     top: -4px;
+}
+
+.shipment-row {
+    float: left;
+    font-size: 17px;
+    background-color: #EFFEFE;
+    width: 100%;
+    padding: 10px;
+}
+
+.shipment-row .label,
+.shipment-row .value {
+    display: inline-block;
+    float: left;
+}
+
+.shipment-row .label {
+    width: 60%;
+}
+
+.shipment-row .value {
+    width: 40%;
+    text-align: right;
+}
+
+.shipment-row .price-value.free-active {
+    text-decoration: line-through;
+}
+
+.shipment-row .free-label {
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.summary-row {
+    float: left;
+    font-size: 20px;
+    width: 100%;
+    padding: 10px;
+}
+
+.summary-row .label,
+.summary-row .value {
+    display: inline-block;
+    float: left;
+}
+
+.summary-row .label {
+    width: 60%;
+}
+
+.summary-row .value {
+    width: 40%;
+    text-align: right;
 }
 
 .buy-row {
@@ -286,4 +399,9 @@ body {
 .voucherifyContainer,
 .voucherifyLogo {
     box-sizing: content-box;
+}
+
+.voucherifyContainer {
+    box-shadow: 0 0 40px 10px rgba(256, 256, 256, 0.8) !important;
+    -webkit-box-shadow: 0 0 40px 10px rgba(256, 256, 256, 0.8) !important;
 }

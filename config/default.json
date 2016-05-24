@@ -8,6 +8,8 @@
     "clientSideKeys": {
       "clientApplicationId": null,
       "clientPublicKey": null
-    }
+    },
+    "numberOfSuppliedTestVouchers": 5,
+    "testVouchersCategory": "voucherify-nodejs-example"
   }
 }
