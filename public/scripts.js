@@ -1,8 +1,8 @@
 (function (window, $, Voucherify, clientConfig, userIdentity) {
   'use strict'
 
-  const sampleProductPrice = 32.40
-  const sampleShipmentPrice = 12
+  var sampleProductPrice = 32.40
+  var sampleShipmentPrice = 12
 
   var getVouchers = function () {
     return $.get('/vouchers.json')
