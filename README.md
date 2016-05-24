@@ -19,7 +19,7 @@ When you go to configuration view of Voucherify account, "Your website URL" is u
 
 3. Press this button to create a Heroku app
 
-    [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+    [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/voucherifyio/voucherify-nodejs-example)
 
     Wait until the Deploy Window is open.
 
