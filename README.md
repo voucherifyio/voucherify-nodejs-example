@@ -1,7 +1,5 @@
 # Voucherify - Node.js SDK sample application
 
-### Site is under construction. Available soon!
-
 ## Overview
 
 This sample application aims to show the possibilities of **Voucherify Node.js SDK** and **Voucherify.js** libraries. You can try out this app by clicking Deploy to Heroku button.
