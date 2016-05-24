@@ -126,10 +126,10 @@
       _self.res = null
 
       getVouchers()
-        .done((vouchersList) => {
+        .done(function (vouchersList) {
           _self.setVouchersList(vouchersList)
         })
-        .fail((err) => {
+        .fail(function (err) {
           console.error(err)
         })
 
@@ -198,7 +198,7 @@
       $('#total-price').text(((_self.discountPrice || _self.totalPrice)).toFixed(2))
       $('#summary-price').text(((_self.discountPrice || _self.totalPrice) + (_self.freeShipment ? 0 :_self.shipmentPrice)).toFixed(2))
 
-      $('#vouchers-list').html(_self.vouchersList.map((voucher) => {
+      $('#vouchers-list').html(_self.vouchersList.map(function (voucher) {
         return $('<div>')
           .addClass('voucher-item')
           .html(function () {
