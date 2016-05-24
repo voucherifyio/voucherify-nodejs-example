@@ -353,17 +353,25 @@ body {
 }
 
 .buy-row {
-    width: 100%;
     text-align: right;
 }
 
-.buy-row .buy-button {
+.toolbar-row {
+    text-align: center;
+}
+
+.buy-row,
+.toolbar-row {
+    width: 100%;
+}
+
+.buy-row .buy-button,
+.toolbar-row .back-button {
     display: block;
     border: 0;
     border-radius: 2em;
     padding: 0 1.75em;
     margin: 20px 0;
-    float: right;
     cursor: pointer;
     outline: 0;
     line-height: 3em;
@@ -373,6 +381,10 @@ body {
     text-transform: uppercase;
     background-color: #08ffb9;
     color: rgba(63, 49, 49, .8);
+}
+
+.buy-row .buy-button {
+    float: right;
 }
 
 /* Main Footer */
