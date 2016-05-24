@@ -99,7 +99,7 @@
       _self.product = new ProductModel(sampleProductPrice, function (count, price) {
         _self.setTotalPrice(count * price)
 
-        if (_self.res !== null) {
+        if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
           _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
           _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
         }
@@ -108,11 +108,13 @@
       _self.voucher = new VoucherCode(identity, function (res) {
         _self.res = res
 
-        if( _self.res.discount.type === "UNIT" && _self.res.valid === true) {
+        if(!_self.freeShipment && _self.res.discount.type === "UNIT" && _self.res.valid === true) {
           _self.setFreeShipment(true)
-        } else {
+        }
+
+        if (_self.res.discount.type !== "UNIT" || _self.res.valid !== true) {
           _self.setDiscountPrice(Voucherify.utils.calculatePrice(_self.totalPrice, _self.res))
-          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.product.count * _self.product.price, _self.res))
+          _self.setDiscount(Voucherify.utils.calculateDiscount(_self.totalPrice, _self.res))
         }
       })
 
