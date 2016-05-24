@@ -45,7 +45,7 @@ When you go to configuration view of Voucherify account, "Your website URL" is u
 ## Help
 
 * Found a bug? Have a suggestion for improvement? Want to tell us we're awesome? [**Submit an issue**](https://github.com/voucherifyio/voucherify-nodejs-example/issues/new)
-* Trouble with your integration? Contact [**Voucherify Support**](https://voucherify.readme.io/docs/support) / [**support@voucherify.io**](support@voucherify.io)
+* Trouble with your integration? Contact [**Voucherify Support**](https://voucherify.readme.io/docs/support) / [**support@voucherify.io**](mailto:support@voucherify.io)
 * Want to contribute? [**Submit a pull request**](https://github.com/voucherifyio/voucherify-nodejs-example/compare)
 
 ## Disclaimer
