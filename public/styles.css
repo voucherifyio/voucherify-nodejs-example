@@ -61,6 +61,11 @@ body {
 }
 
 /* Product section */
+#products-count {
+    text-align: right;
+    width: 100%;
+}
+
 .product-image-column,
 .summary-column,
 .product-description-column {
