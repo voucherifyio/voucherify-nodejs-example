@@ -4,6 +4,8 @@
 
 This sample application aims to show the possibilities of **Voucherify Node.js SDK** and **Voucherify.js** libraries. You can try out this app by going to [Live Version](https://voucherify-sample-nodejs.herokuapp.com/) or by clicking the Deploy to Heroku button.
 
+More info: [http://voucherify.io](http://voucherify.io/?utm_source=github&utm_medium=demo&utm_campaign=acq)
+
 ![](blob/sample_app.png)
 
 ## Setup
