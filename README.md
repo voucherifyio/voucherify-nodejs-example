@@ -7,7 +7,7 @@ This sample application shows the [basic workflow](https://voucherify.readme.io/
 Implemented with our [Node.js SDK](https://voucherify.readme.io/docs/nodejs-tutorial) and [Voucheriy.js](https://voucherify.readme.io/docs/voucherifyjs) client library. 
 
 ---
-[Voucherify](http://voucherify.io?utm_source=github&utm_medium=sdk&utm_campaign=acq) is an API-first platform for software developers who are dissatisfied with high-maintenance custom coupon software. Our product is a coupon infrastructure through API that provides a quicker way to build coupon generation, distribution and tracking. Unlike legacy coupon software we have:
+[Voucherify](http://voucherify.io?utm_source=github&utm_medium=demo&utm_campaign=acq) is an API-first platform for software developers who are dissatisfied with high-maintenance custom coupon software. Our product is a coupon infrastructure through API that provides a quicker way to build coupon generation, distribution and tracking. Unlike legacy coupon software we have:
 
 * an API-first SaaS platform that enables customisation of every aspect of coupon campaigns
 * a management console that helps cut down maintenance and reporting overhead
